@@ -1,0 +1,88 @@
+.modal{
+    display: none;
+    opacity: 0;
+    position: fixed;
+    z-index: 9999;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%,-20%);
+    background: #fff;
+    height: 560px;
+    width: 500px;
+    padding: 1rem;
+    transition: all 0.4s;
+    overflow-y: scroll;
+    &.isOpen{
+        display: block;
+        opacity: 1;
+    }
+    &.isClose{
+        display: none;
+        opacity: 0;
+    }
+    &__header{
+        h2{
+            text-align: center;
+            font-size: $fs-lg;
+            letter-spacing: 2px;
+
+            color: green;
+        }
+        a{
+            color: red;
+            font-size: $fs-md;
+        }
+    }
+    &__body{
+        .groupBox{
+            width: 100%;
+            margin-top: 20px;
+            input,select,textarea{
+                width: 100%;
+                display: block;
+                padding: 10px;
+            }
+            &:last-child{
+                height: 100px;
+                width: 100px;
+            }
+        }
+    }
+    &__footer{
+        width: 100%;
+        display: flex;
+        flex-direction: row-reverse;
+        a{
+            display: block;
+            background: green;
+            padding: 0.5rem 1.5rem;
+            color: #fff;
+            i{
+                margin-right: 10px;
+            }
+        }
+    }
+}
+#demo-image{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+//Edit form
+
+form.edit{
+    .groupBox{
+        height: 100px;
+        width: 100px;
+        margin: 20px auto;
+    }
+    .inputBox select, textarea{
+        width: 100%;
+        display: block;
+        padding: 10px;
+    }
+}
+textarea{
+    resize: none;
+}
