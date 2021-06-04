@@ -78,15 +78,15 @@
         <form  method="post" action="addProduct" enctype="multipart/form-data">
             <div class="groupBox">
                 <label for="">Tên sản phẩm:</label>
-                <input type="text" name="ten">
+                <input type="text" name="ten" required="true">
             </div>
             <div class="groupBox">
                 <label for="">Giá sản phẩm:</label>
-                <input type="text" name="gia" >
+                <input type="text" name="gia" required="true">
             </div>
             <div class="groupBox">
                 <label for="">Danh mục:</label>
-                <select name="danhMuc" id="">
+                <select name="danhMuc" id="" >
                     <c:forEach items="${listCT}" var="i">
                         <option value="${i.id}">${i.name}</option>
                     </c:forEach>
@@ -94,11 +94,11 @@
             </div>
             <div class="groupBox">
                 <label for="">Mô tả</label>
-                <textarea name="moTa"  cols="30" rows="10" ></textarea>
+                <textarea name="moTa"  cols="30" rows="10" required="true"></textarea>
             </div>
             <div class="groupBox">
                 <label for="">Hình ảnh:</label>
-                <input type="file"  size="60" name="hinhAnh" id="fileUpload" accept="image/png, image/jpeg">
+                <input type="file"  size="60" name="hinhAnh" id="fileUpload" accept="image/png, image/jpeg" required="true">
             </div>
        
             <div class="modal__footer">

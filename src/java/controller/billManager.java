@@ -6,29 +6,27 @@
 package controller;
 
 import DAO.DAO;
+import Entities.BillStatus;
 import Entities.Categories;
 import Entities.Product;
-import java.io.File;
+import Entities.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collections;
 import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Der Mods
  */
-@WebServlet(name = "addProduct", urlPatterns = {"/addProduct"})
-@MultipartConfig(fileSizeThreshold = 1024 * 1024,
-        maxFileSize = 1024 * 1024 * 5,
-        maxRequestSize = 1024 * 1024 * 5 * 5)
-public class addProduct extends HttpServlet {
+@WebServlet(name = "billManager", urlPatterns = {"/billManager"})
+public class billManager extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,49 +40,20 @@ public class addProduct extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        String fileName="";
-        for (Part part : request.getParts()) {
-            if(part.getName().equals("hinhAnh")){
-                 fileName = extractFileName(part);
-            // refines the fileName in case it is an absolute path
-            fileName = new File(fileName).getName();
-            part.write(this.getFolderUpload().getAbsolutePath() + File.separator + fileName);
-            }
+         HttpSession session = request.getSession();
+        User acc = User.class.cast(session.getAttribute("acc"));
+        if (acc == null) {
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         }
-       
-       String ten = request.getParameter("ten");
-       int gia = Integer.parseInt(request.getParameter("gia"));
-       
-       int danhMuc = Integer.parseInt(request.getParameter("danhMuc"));
-       String moTa = request.getParameter("moTa");
-       String hinhAnh = "/app/img/coffee/"+fileName;
-       
-        Product pd = new Product(1, ten, hinhAnh,moTa, danhMuc, gia);
-        
+
         DAO dao = new DAO();
         
-        dao.createProduct(pd);
-      response.sendRedirect("managerProduct");
-    }
+        List<BillStatus> list = dao.getBillStatus();
+        Collections.reverse(list);
 
-    private String extractFileName(Part part) {
-        String contentDisp = part.getHeader("content-disposition");
-        String[] items = contentDisp.split(";");
-        for (String s : items) {
-            if (s.trim().startsWith("filename")) {
-                return s.substring(s.indexOf("=") + 2, s.length() - 1);
-            }
-        }
-        return "";
-    }
+        request.setAttribute("list", list);
 
-    public File getFolderUpload() {
-        File folderUpload = new File("C:\\Users\\Der Mods\\OneDrive\\Máy tính\\CoffeeCakeShop\\web\\app\\img\\coffee");
-        if (!folderUpload.exists()) {
-            folderUpload.mkdirs();
-        }
-        return folderUpload;
+        request.getRequestDispatcher("billManager.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

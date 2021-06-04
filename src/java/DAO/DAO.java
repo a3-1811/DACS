@@ -1,6 +1,7 @@
 package DAO;
 
 import Entities.BillDetail;
+import Entities.BillStatus;
 import Entities.Cart;
 import Entities.CartView;
 import Entities.Categories;
@@ -120,13 +121,14 @@ public class DAO {
     // lay danh sach theo keyword
     public List<Product> searchProducts(String txt) {
         String query = "SELECT * FROM Product\n"
-                + "WHERE name like ?";
+                + "WHERE name like ? or descriptions like ?";
         List<Product> list = new LinkedList<Product>();
 
         try {
             connect = new DbContext().getConnection();
             ps = connect.prepareStatement(query);
             ps.setString(1, "%" + txt + "%");
+            ps.setString(2, "%" + txt + "%");
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -143,7 +145,8 @@ public class DAO {
         }
         return list;
     }
- // lay danh sach user theo keyword
+    // lay danh sach user theo keyword
+
     public List<User> searchUsers(String txt) {
         String query = "SELECT * FROM [User]\n"
                 + "WHERE name like ? or email like ?";
@@ -158,7 +161,7 @@ public class DAO {
 
             while (rs.next()) {
                 User temp = new User();
-                  temp.setEmail(rs.getNString(1));
+                temp.setEmail(rs.getNString(1));
                 temp.setPassword(rs.getString(2));
                 temp.setName(rs.getNString(3));
                 temp.setPhone(rs.getNString(4));
@@ -172,6 +175,7 @@ public class DAO {
         }
         return list;
     }
+
     //Lay tai khoan dang nhap
     public User getUser(String email, String password) {
         String query = "SELECT * FROM [User]\n"
@@ -240,8 +244,9 @@ public class DAO {
         } catch (Exception e) {
         }
     }
+
     //lay tai khoan
-    public void createUser(String email, String password,String name,String sdt,int isAdmin) {
+    public void createUser(String email, String password, String name, String sdt, int isAdmin) {
 
         String query = "INSERT INTO [User] VALUES(?,?,?,?,?,?,?,?)";
         User temp = new User();
@@ -562,8 +567,9 @@ public class DAO {
 
         return list;
     }
+
     //Xoa san pham
-     public void deleteProduct(int pid) {
+    public void deleteProduct(int pid) {
 
         String query = "DELETE \n"
                 + "FROM  Product\n"
@@ -578,8 +584,9 @@ public class DAO {
         } catch (Exception e) {
         }
     }
-     //Xoa user
-     public void deleteUser(String uid) {
+    //Xoa user
+
+    public void deleteUser(String uid) {
 
         String query = "DELETE \n"
                 + "FROM  [User]\n"
@@ -594,7 +601,7 @@ public class DAO {
         } catch (Exception e) {
         }
     }
-     //lay categories theo id
+    //lay categories theo id
 
     public Categories getCategoryById(int id) {
         String query = "SELECT * FROM Categories\n"
@@ -614,19 +621,19 @@ public class DAO {
         }
         return temp;
     }
-     
-     //create product
+
+    //create product
     public void createProduct(Product pd) {
 
         String query = "INSERT INTO [Product] VALUES(?,?,?,?,?)";
-        
-       String subDes = getCategoryById(pd.getCategoryId()).getName();
+
+        String subDes = getCategoryById(pd.getCategoryId()).getName();
         try {
             connect = new DbContext().getConnection();
             ps = connect.prepareStatement(query);
             ps.setString(1, pd.getName());
             ps.setString(2, pd.getImage());
-            ps.setString(3, pd.getDescriptions()+" "+subDes);
+            ps.setString(3, pd.getDescriptions() + " " + subDes);
             ps.setInt(4, pd.getCategoryId());
             ps.setInt(5, pd.getPrice());
             rs = ps.executeQuery();
@@ -634,6 +641,7 @@ public class DAO {
         } catch (Exception e) {
         }
     }
+
     //Update product
     public Product update(Product o) {
 
@@ -657,9 +665,10 @@ public class DAO {
         Product temp = getProductById(id.toString());
         return temp != null ? temp : null;
     }
+
     //Lay tat ca User
-     public List<User> getAllUsers() {
-        String query = "SELECT * FROM [User] \n"+""
+    public List<User> getAllUsers() {
+        String query = "SELECT * FROM [User] \n" + ""
                 + "Where isAdmin = ?";
         List<User> list = new LinkedList<User>();
         try {
@@ -670,7 +679,7 @@ public class DAO {
 
             while (rs.next()) {
                 User temp = new User();
-               temp.setEmail(rs.getNString(1));
+                temp.setEmail(rs.getNString(1));
                 temp.setPassword(rs.getString(2));
                 temp.setName(rs.getNString(3));
                 temp.setPhone(rs.getNString(4));
@@ -685,5 +694,49 @@ public class DAO {
         }
 
         return list;
+    }
+    //BIll manager
+
+    public List<BillStatus> getBillStatus() {
+        String query = "SELECT B.idBill ,B.ngayMua,A.Name,a.Phone, b.Total,B.tinhTrangGH\n"
+                + "FROM [User] A, Bill B\n"
+                + "WHERE A.Email= B.Email";
+        List<BillStatus> list = new LinkedList<BillStatus>();
+        try {
+            connect = new DbContext().getConnection();
+            ps = connect.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                BillStatus temp = new BillStatus();
+                temp.setId(rs.getInt(1));
+                temp.setNgauMua(rs.getDate(2));
+                temp.setTenKH(rs.getNString(3));
+                 temp.setSdt(rs.getNString(4));
+                temp.setTongTien(rs.getInt(5));
+                temp.setTrangThai(rs.getBoolean(6));
+
+                list.add(temp);
+            }
+
+        } catch (Exception e) {
+        }
+        return list;
+    }
+    
+    //Update status Bill
+    public void updateStatus(String id){
+         String query = "UPDATE [Bill]\n"
+                + "SET tinhTrangGH = ?\n"
+                + "WHERE idBill = ?";
+        try {
+            connect = new DbContext().getConnection();
+            Date dtDate = Date.valueOf("2000-01-01");
+            ps = connect.prepareStatement(query);
+            ps.setString(2, id);
+            ps.setInt(1, 1);
+            rs = ps.executeQuery();
+        } catch (Exception e) {
+        }
     }
 }

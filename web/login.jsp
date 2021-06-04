@@ -29,7 +29,6 @@
                     <form action="login" method="POST">
                         <input type="email" name="email" placeholder="Email address" required>
                         <input type="password" name="password" placeholder="Password" required>
-                        <label><input type="checkbox" name="remember"> <span>Remember me</span> <a href="/">Forgot password ?</a></label>
                         <input type="submit" value="Đăng nhập">
                     </form>
                 </div>

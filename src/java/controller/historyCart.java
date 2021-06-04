@@ -38,7 +38,7 @@ public class historyCart extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-         HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
 
         User temp = User.class.cast(session.getAttribute("acc"));
         
