@@ -17,7 +17,7 @@
     <section class="content">
         <section class="login-header flex jc-c ai-c">
             <nav class="container flex jc-sb ai-c">
-                <a href="index" class="logo">CCS</a>
+             <a href="index" class="logo"><img src="./app/img/logo.png" alt=""> </a>
                 <a href="register.jsp"><i class="fa fa-plus-circle"></i>Đăng ký</a>
             </nav>
         </section>

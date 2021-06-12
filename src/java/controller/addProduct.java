@@ -80,7 +80,7 @@ public class addProduct extends HttpServlet {
     }
 
     public File getFolderUpload() {
-        File folderUpload = new File("C:\\Users\\Der Mods\\OneDrive\\Máy tính\\CoffeeCakeShop\\web\\app\\img\\coffee");
+        File folderUpload = new File(getServletContext().getRealPath("/")+"app\\img\\coffee");
         if (!folderUpload.exists()) {
             folderUpload.mkdirs();
         }
