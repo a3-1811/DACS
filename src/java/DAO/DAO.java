@@ -595,10 +595,13 @@ public class DAO {
         try {
             connect = new DbContext().getConnection();
             ps = connect.prepareStatement(query);
-            ps.setNString(1, uid.toString().trim());
+            ps.setNString(1, uid.trim());
             rs = ps.executeQuery();
+            
+            
 
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
     //lay categories theo id
