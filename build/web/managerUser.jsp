@@ -65,53 +65,52 @@
         </table>
     </div>
 </section>
-
-<div class="modal" id="modal">
+    <div class="modal ${isError == true ? "isOpen" : "isClose"}" id="modal">
     <div class="modal__header flex jc-sb ai-c">
         <h2>Add User</h2>
         <a  class="exit" href="#"><i class="fa fa-times"></i></a>
     </div>
-    <div class="modal__body">
-        <p style="color: red">${mess}</p>
-    <form action="addUser" method="POST">
-            <div class="groupBox">
-                <label for="">Tên người dùng</label>
-                <input name="name" type="text" autocomplete="none" required="true">
-            </div>
-            <div class="groupBox">
-                <label for="">Email</label>
-                <input  name="email" type="email" required="true" autocomplete="none" >
-            </div>
-            <div class="groupBox">
-                <label for="">Loại</label>
-                <select name="type" id="">
-                    <option value="0">Người dùng</option>
-                    <option value="1">Admin</option>
-                </select>
-            </div>
-            <div class="groupBox">
-                <label for="">SĐT</label>
-                <input name="sdt" type="number" required="true" onkeypress='return event.charCode >= 48 && event.charCode <= 57' >
-            </div>
-            <div class="groupBoxx" style="    width: 100%;
-                 margin-top: 20px;">
-                <label for="">Mật khẩu</label>
-                <input style="width: 100% !important; display: block;
-                       padding: 10px; " name="password" type="password" required="true">
-            </div>
-            <div class="modal__footer mt-3">
-                <button style="display: block;
-                        background: green;
-                        padding: 0.5rem 1.5rem;
-                        outline: none;
-                        border: 0;
-                        cursor: pointer;
-                        color: #fff;" id="openModal"><i class="fa fa-plus-circle"></i>Add</button>
-            </div>
-        </form>
+        <div class="modal__body">
+            <p style="color: red">${mess}</p>
+            <form action="addUser" method="POST">
+                <div class="groupBox">
+                    <label for="">Tên người dùng</label>
+                    <input name="name" type="text" autocomplete="off" required="true">
+                </div>
+                <div class="groupBox">
+                    <label for="">Email</label>
+                    <input  name="email" type="email" required="true" autocomplete="off" >
+                </div>
+                <div class="groupBox">
+                    <label for="">Loại</label>
+                    <select name="type" id="">
+                        <option value="0">Người dùng</option>
+                        <option value="1">Admin</option>
+                    </select>
+                </div>
+                <div class="groupBox">
+                    <label for="">SĐT</label>
+                    <input name="sdt" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57 && event.target.value.length <= 10' autocomplete="off" required="true"  >
+                </div>
+                <div class="groupBoxx" style="    width: 100%;
+                     margin-top: 20px;">
+                    <label for="">Mật khẩu</label>
+                    <input style="width: 100% !important; display: block;
+                           padding: 10px; " name="password" type="password" required="true">
+                </div>
+                <div class="modal__footer mt-3">
+                    <button style="display: block;
+                            background: green;
+                            padding: 0.5rem 1.5rem;
+                            outline: none;
+                            border: 0;
+                            cursor: pointer;
+                            color: #fff;" id="openModal"><i class="fa fa-plus-circle"></i>Add</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-
+       
 <jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

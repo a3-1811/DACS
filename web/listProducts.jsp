@@ -46,6 +46,9 @@
                     </div>
                 </div>
                 </c:forEach>
+            <c:if test="${listSP.size() <= 0}">
+                <h1 style="color:#fff; font-size: 40px; position: absolute">Không tìm thấy sản phẩm phù hợp!</h2>
+            </c:if>
             </div>
         </div>
     </section>

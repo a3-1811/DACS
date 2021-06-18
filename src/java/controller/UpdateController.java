@@ -57,13 +57,18 @@ public class UpdateController extends HttpServlet {
         
         Date dt = Date.valueOf(ngaySinh);
         
+        if(sdt.charAt(0) != '0'){
+            request.setAttribute("error", "Phone number format invalid! (0xxx)");
+            request.getRequestDispatcher("dashbroad.jsp").forward(request, response);
+        }
+        
         User u = new User(email, password, ten, sdt, diaChi, false,dt, gt);
         
         User temp = dao.update(u);
         
         session.removeAttribute("acc");
         session.setAttribute("acc", temp);
-        response.sendRedirect("index");
+        response.sendRedirect("dashbroad");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

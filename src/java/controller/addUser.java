@@ -54,13 +54,28 @@ public class addUser extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        if (dao.isExist(email)) {
+        boolean isValid = sdt.charAt(0) == '0' ? true : false ;
+        
+        if (dao.isExist(email) || sdt.length() <10 || !isValid) {
             request.setAttribute("list", list);
-            request.setAttribute("mess", "Email or UserName have already exist!");
+              String error = "";
+            if(dao.isExist(email)){
+                error += "Email or UserName have already exist!";
+            }
+           
+            if(sdt.length() <10){
+                error+= ", Phone number invalid";
+            }
+            if(!isValid){
+                 error+= ", Phone number format (0xxx)";
+            }
+            request.setAttribute("mess", error);
+            request.setAttribute("isError", true);
             request.getRequestDispatcher("managerUser.jsp").forward(request, response);
         } else {
             dao.createUser(email, password, name, sdt, type);
             request.setAttribute("list", list);
+            request.setAttribute("isError", false);
             request.getRequestDispatcher("managerUser.jsp").forward(request, response);
         }
     }

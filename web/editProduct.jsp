@@ -32,15 +32,15 @@
                     <form class="edit" action="editPD" method="POST" enctype="multipart/form-data">
                         <div class="inputBox">
                             <label for="">Tên sản phẩm</label>
-                            <input type="text" name="ten" value="${pd.name}" autocomplete="none">
+                            <input type="text" name="ten" value="${pd.name}" autocomplete="off" required="true">
                     </div>
                     <div class="inputBox">
                         <label for="">Mô tả</label>
-                        <textarea name="moTa"  cols="30" rows="10" >${pd.descriptions}</textarea>
+                        <textarea name="moTa"  cols="30" rows="10" required="true">${pd.descriptions}</textarea>
                     </div>
                     <div class="inputBox">
                         <label for="">Giá</label>
-                        <input type="number" name="gia" value="${pd.price}">
+                        <input type="number" name="gia" value="${pd.price}" onkeypress='return event.charCode >= 48 && event.charCode <= 57 && event.target.value.length <= 8' required="true">
                     </div>
                     <div class="inputBox">
                         <label for="">Danh mục:</label>

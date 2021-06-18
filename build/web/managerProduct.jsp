@@ -82,7 +82,7 @@
             </div>
             <div class="groupBox">
                 <label for="">Giá sản phẩm:</label>
-                <input type="text" name="gia" required="true">
+                <input type="text" name="gia" required="true" onkeypress='return event.charCode >= 48 && event.charCode <= 57 && event.target.value.length <= 8' >
             </div>
             <div class="groupBox">
                 <label for="">Danh mục:</label>

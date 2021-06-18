@@ -149,7 +149,7 @@ public class DAO {
 
     public List<User> searchUsers(String txt) {
         String query = "SELECT * FROM [User]\n"
-                + "WHERE name like ? or email like ?";
+                + "WHERE (name like ? or email like ?) and isAdmin = 0";
         List<User> list = new LinkedList<User>();
 
         try {

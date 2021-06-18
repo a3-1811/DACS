@@ -32,7 +32,7 @@
                     <div class="quan">
                         <label for="">Số lượng:</label>
                         <input type="hidden" name="pid" value="${product.id}">
-                        <input value="1" type="number" name="numb" step="1" min="1" oninput="validity.valid||(value='');">
+                        <input value="1" type="number" name="numb" step="1" min="1" oninput="validity.valid||(value='');" max="999">
                     </div>
                     <button type="submit">Thêm vào giỏ</button>
                 </form>

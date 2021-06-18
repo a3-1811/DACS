@@ -25,17 +25,20 @@
             <!-- 75% -->
             <h3>Thông tin tài khoản</h3>
             <form action="update" method="POST">
+            <c:if test="${error.length() > 0}">
+                <h3 style="color: red">${error}</h2>
+            </c:if>
                 <div class="inputBox">
                     <label for="">Họ tên</label>
-                    <input type="text" name="ten" value="${sessionScope.acc.name}" autocomplete="none">
+                    <input type="text" name="ten" value="${sessionScope.acc.name}" autocomplete="none" required="true">
                 </div>
                 <div class="inputBox">
                     <label for="">Số điện thoại</label>
-                    <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="sdt" value="${sessionScope.acc.phone}">
+                    <input type="text" autocomplete="off" minlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57 && event.target.value.length <= 9' name="sdt" value="${sessionScope.acc.phone}" required="true">
                 </div>
                 <div class="inputBox">
                     <label for="">Email</label>
-                    <input type="email" name="email" value="${sessionScope.acc.email}" disabled="true">
+                    <input type="email" name="email" value="${sessionScope.acc.email}" disabled="true" required="true">
                 </div>
                 <div class="inputBox">
                     <label for="">Giới tính</label>
@@ -54,11 +57,11 @@
                 </div>
                 <div class="inputBox">
                     <label for="">Ngày sinh</label>
-                    <input type="date" name="ngaySinh" value="${sessionScope.acc.birthday}" min="1970-01-01" max="${dt}">
+                    <input type="date" name="ngaySinh" value="${sessionScope.acc.birthday}" min="1970-01-01" max="${dt}" required="true">
                 </div>
                 <div class="inputBox">
                     <label for="">Địa chỉ</label>
-                    <textarea name="diaChi"  cols="10" rows="3" >${sessionScope.acc.address}</textarea>
+                    <textarea name="diaChi"  cols="10" rows="3" required="true">${sessionScope.acc.address}</textarea>
                 </div>
                 <button type="submit">Cập nhật</button>
             </form>

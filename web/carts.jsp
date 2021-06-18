@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="inputBox">
                                     <input type="button" value="-" >
-                                    <input type="number" value="${o.soLuong}" min="1" max="99" >
+                                    <input type="number" value="${o.soLuong}" oninput="validity.valid||(value='');" min="1" max="99" >
                                     <input type="button" value="+" >
                                 </div>
                                 <div class="iconBox">

@@ -40,9 +40,16 @@ public class DashbroadController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        request.setAttribute("dt", Date.valueOf(LocalDate.now()));
+          HttpSession session = request.getSession();
+        User acc = User.class.cast(session.getAttribute("acc"));
+        if (acc == null) {
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
+              request.setAttribute("dt", Date.valueOf(LocalDate.now()));
         
         request.getRequestDispatcher("dashbroad.jsp").forward(request, response);
+        
+  
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

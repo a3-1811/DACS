@@ -50,6 +50,7 @@ public class managerUser extends HttpServlet {
         List<User> list = dao.getAllUsers();
 
         request.setAttribute("list", list);
+          request.setAttribute("isError", false);
         request.getRequestDispatcher("managerUser.jsp").forward(request, response);
     }
 
