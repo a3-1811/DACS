@@ -60,7 +60,7 @@ public class addUser extends HttpServlet {
             request.setAttribute("list", list);
               String error = "";
             if(dao.isExist(email)){
-                error += "Email or UserName have already exist!";
+                error += "Email have already exist!";
             }
            
             if(sdt.length() <10){

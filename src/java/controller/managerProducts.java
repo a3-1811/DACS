@@ -41,7 +41,7 @@ public class managerProducts extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         User acc = User.class.cast(session.getAttribute("acc"));
-        if (acc == null) {
+        if (acc == null || !acc.isIsAdmin()) {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
 
